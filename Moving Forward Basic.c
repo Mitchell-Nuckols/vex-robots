@@ -1,23 +1,14 @@
-/*************************************************************************
-VEX - Moving Forward
+#pragma config(Sensor, in1, touchSensor, sensorTouch)
 
-Description: This program instructs your robot to move forward at full
-power for three seconds. There is a two second pause at the beginning
-of the program.
-
-Configuration: This program is written to work with the Squarebot model.
-	Right Motor - port2
-	Left	Motor - port3
-
-Additional Notes:
--	The "bMotorReflected[port2] = 1;" is needed with the Squarebot model,
-	but may not be needed for all robot configurations.
-*************************************************************************/
+// Runs the motors at half power until the button is pressed.
 
 task main()
 {
-	//Move forward at full power for 3 seconds
-	motor[port2] = 127;		//Motor on port2 is run at full (127) power forward
-	motor[port3] = 127;		//Motor on port3 is run at full (127) power forward
-	wait1Msec(3000);			//Robot runs previous code for 3000 milliseconds before moving on
+	wait1Msec(2000);
+	
+	while(SensorValue(in1) == 0)		//Loop while robot's bumper/touch sensor isn't pressed in
+	{
+		motor[port2] = 63;			//Motor on port2 is run at half (63) power forward
+		motor[port3] = 63;			//Motor on port3 is run at half (63) power forward
+	}
 }
